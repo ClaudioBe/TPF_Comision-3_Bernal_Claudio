@@ -44,27 +44,31 @@ namespace DeepSpace
 			var c = new Cola<ArbolGeneral<Planeta>>();
 			ArbolGeneral<Planeta> arbolAux;
 			string desc = "";
+			//creo "esDesc" para cambiarlo a true en los proximos planetas procesados luego de 
+			//encontrar al del bot
 			bool esDesc=false;
 			// encolamos raiz
 			c.encolar(arbol);					
 			
-			// procesamos cola
 			while(!c.esVacia()){
 				arbolAux = c.desencolar();
 				
-				// procesar el dato
+				// si encuentro al planeta del bot...
 				if(arbolAux.getDatoRaiz().EsPlanetaDeLaIA()){
+					if(arbolAux.esHoja()) return "El planeta del bot no tiene descendientes";
+					//cambio "esDesc" a true, ya que los proximos seran hijos del bot
 					esDesc=true;
+					//reseteo la cola, porque solamente deberá contener los planetas descendientes del bot 
 					c=new Cola<ArbolGeneral<Planeta>>();
 				}
-					
+				//si no es planeta de la ia significa que bien, es hijo del planeta del bot o es descendiente
+				//de este, por eso tambien evalúo si esDesc es true. Si no lo es significa que aún no se encontro el bot  				
 				if(!arbolAux.getDatoRaiz().EsPlanetaDeLaIA() && esDesc) desc+="\n" + arbolAux.getDatoRaiz();
 					
-				// encolamos hijos
-				if(esDesc||desc==""){
-					foreach(var hijo in arbolAux.getHijos())
-						c.encolar(hijo);
-				}		
+				// encolo a los hijos si es que todavia no agregué ningun descendiente, o si ya encontre al bot
+				foreach(var hijo in arbolAux.getHijos())
+					c.encolar(hijo);
+						
 			}				
 		
 			return "Los planetas descendientes del bot son: " + desc;
@@ -86,7 +90,8 @@ namespace DeepSpace
 			// procesamos cola
 			while(!c.esVacia()){
 				arbolAux = c.desencolar();
-				//si el nivel en el que esta el arbol auxiliar es diferente al que estoy calculando..
+				//si el nivel en el que esta el arbol auxiliar es diferente al que estoy calculando 
+				//o no hay ningun arbol mas en la cola..
 				if(arbol.nivel(arbolAux.getDatoRaiz())!=nivel || arbolAux==null) {
 					prom=pobTotal/cant;
 					resultado+="\n" + "En el nivel " + nivel + " la poblacion total es de " + pobTotal + " y la promedio es de " + prom;
@@ -124,8 +129,7 @@ namespace DeepSpace
 						return new Movimiento(planeta,planeta2);
 					
 					if(planeta2.EsPlanetaDeLaIA() && planeta2.Poblacion()>=2*planeta.Poblacion()) 
-						return new Movimiento(planeta2,planeta);
-					
+						return new Movimiento(planeta2,planeta);	
 				}
 			
 			}

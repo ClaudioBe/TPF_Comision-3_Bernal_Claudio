@@ -64,9 +64,7 @@ namespace DeepSpace
 					if(a.includes(dato)) return 1 + a.nivel(dato);
 				}
 			}
-				
 			return -1;
-			
 		}
 	
 	}
