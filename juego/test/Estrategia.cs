@@ -92,7 +92,7 @@ namespace DeepSpace
 				arbolAux = c.desencolar();
 				//si el nivel en el que esta el arbol auxiliar es diferente al que estoy calculando 
 				//o no hay ningun arbol mas en la cola..
-				if(arbol.nivel(arbolAux.getDatoRaiz())!=nivel || arbolAux==null) {
+				if(arbol.nivel(arbolAux.getDatoRaiz())!=nivel) {
 					prom=pobTotal/cant;
 					resultado+="\n" + "En el nivel " + nivel + " la poblacion total es de " + pobTotal + " y la promedio es de " + prom;
 					nivel++;
@@ -102,7 +102,14 @@ namespace DeepSpace
 				}					
 				pobTotal+=arbolAux.getDatoRaiz().Poblacion();
 				cant++;
-				foreach(var hijo in arbolAux.getHijos()) c.encolar(hijo);	
+			
+				foreach(var hijo in arbolAux.getHijos()) c.encolar(hijo);
+				//Estom es para el ultimo nivel...
+				if(c.esVacia()){
+					prom=pobTotal/cant;
+					resultado+="\n" + "En el nivel " + nivel + " la poblacion total es de " + pobTotal + " y la promedio es de " + prom;
+				}
+					
 			}
 			return resultado;
 		}			
