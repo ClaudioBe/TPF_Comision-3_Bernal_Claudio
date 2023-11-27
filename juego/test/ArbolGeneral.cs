@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DeepSpace
 {
-	public class ArbolGeneral<T>
+public class ArbolGeneral<T>
 	{
 		
 		private T dato;
@@ -57,6 +57,7 @@ namespace DeepSpace
 				return false;
 			}
 		}
+		
 		public int nivel(T dato) {
 			if(this.getDatoRaiz().Equals(dato)) return 0;
 			else{

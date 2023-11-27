@@ -6,8 +6,6 @@ namespace DeepSpace
 
 	public class Cola<T>
 	{
-
-		
 		private List<T> datos = new List<T>();
 	
 		public void encolar(T elem) {
@@ -19,7 +17,7 @@ namespace DeepSpace
 			this.datos.RemoveAt(0);
 			return temp;
 		}
-		
+
 		public T tope() {
 			return this.datos[0]; 
 		}
